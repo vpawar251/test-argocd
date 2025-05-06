@@ -14,6 +14,21 @@ spec:
     path: . # Path to the directory containing this manifest
     plugin:
       name: aws-cdk-plugin # Explicitly specify the plugin name
+      env: # Add environment variables for the plugin
+      - name: ARGOCD_ENV_REGISTRY
+        value: "178918557969.dkr.ecr.ap-south-1.amazonaws.com"
+      - name: AWS_ACCESS_KEY_ID
+        valueFrom:
+          secretKeyRef:
+            name: aws-credentials
+            key: accessKeyId
+      - name: AWS_SECRET_ACCESS_KEY
+        valueFrom:
+          secretKeyRef:
+            name: aws-credentials
+            key: secretAccessKey
+      - name: AWS_DEFAULT_REGION
+        value: "ap-south-1"
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
