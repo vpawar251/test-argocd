@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: aws-sam-deployment
+  namespace: argocd
+  annotations:
+    argocd.argoproj.io/env-registry: "178918557969.dkr.ecr.ap-south-1.amazonaws.com"
+    argocd.argoproj.io/env-image: "178918557969.dkr.ecr.ap-south-1.amazonaws.com/isl-resource-definition-framework:latest"
+spec:
+  project: default
+  source:
+    repoURL: 'https://github.com/vpawar251/test-argocd.git' # Replace with your Git repository URL
+    targetRevision: main # Replace with your branch name
+    path: . # Path to the directory containing this manifest
+    plugin:
+      name: aws-cdk-plugin # The name of the plugin defined in the ConfigMap
+  destination:
+    server: 'https://kubernetes.default.svc'
+    namespace: default
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
