@@ -13,7 +13,7 @@ spec:
     targetRevision: main # Replace with your branch name
     path: . # Path to the directory containing this manifest
     plugin:
-      name: aws-cdk-plugin # The name of the plugin defined in the ConfigMap
+      name: aws-cdk-plugin # Explicitly specify the plugin name
   destination:
     server: 'https://kubernetes.default.svc'
     namespace: default
